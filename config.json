@@ -1,0 +1,16 @@
+{
+	"development": {
+		"username": "postgres",
+		"password": "password@123",
+		"database": "discuss",
+		"host": "65.109.87.23",
+		"dialect": "postgres"
+	},
+	"production": {
+		"username": "postgres",
+		"password": "password@123",
+		"database": "discuss",
+		"host": "65.109.87.23",
+		"dialect": "postgres"
+	}
+}
