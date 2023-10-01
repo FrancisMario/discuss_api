@@ -22,9 +22,9 @@ async function getUserByEmail(email) {
 	return user;
 }
 
-async function getUserByName(name) {
+async function getUserByName(username) {
 	const user = await db.user.findOne({
-		where: { name },
+		where: { username },
 		include: [
 			{
 				model: db.role,
@@ -55,7 +55,7 @@ async function getUserById(id) {
 }
 
 async function createUser(req) {
-	const { email, name, password, role_id = 2 } = req.body;
+	const { email, username, password, role_id = 2 } = req.body;
 	const hashedPassword = await encryptData(password);
 	const user = await getUserByEmail(email);
 
@@ -63,7 +63,7 @@ async function createUser(req) {
 		throw new ApiError(httpStatus.CONFLICT, 'This email already exits');
 	}
 
-	const userByName = await getUserByName(name);
+	const userByName = await getUserByName(username);
 
 	if (userByName) {
 		throw new ApiError(httpStatus.CONFLICT, 'This username already exits');
@@ -77,7 +77,7 @@ async function createUser(req) {
 
 	const createdUser = await db.user
 		.create({
-			name,
+			username,
 			email,
 			role_id,
 			password: hashedPassword,
